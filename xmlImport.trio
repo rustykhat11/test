@@ -1,0 +1,58 @@
+(scale:1000) => do
+
+emptyList:[]
+  xmlFile: read(dis=="Mean.20141028_103037.xml").xmlRead
+  xmlElements: xmlFile.xmlElems
+  xmlElemSize: xmlElements.size
+  xmlElements = xmlElements[1..xmlElemSize -1]
+ xmlElements.each elem => do
+ 
+    key: elem.xmlElem("Key").xmlVal
+    
+    key=key.split(":")
+     
+    meterName:key[0]
+
+    meterNumber:key[1]
+    pointName: key[2]
+  if(pointName.contains("E-Total"))do
+    firstVal: elem.xmlElem("First").xmlVal.parseNumber 
+    if(scale != null) firstVal=firstVal/scale else firstVal
+
+    lastVal: elem.xmlElem("Last").xmlVal.parseNumber 
+    if(scale != null) lastVal=lastVal/scale else lastVal
+
+    minVal: elem.xmlElem("Min").xmlVal.parseNumber 
+    if(scale != null) minVal=minVal/scale else minVal
+
+    maxVal: elem.xmlElem("Max").xmlVal.parseNumber 
+    if(scale != null) maxVal=maxVal/scale else maxVal
+
+    meanVal: elem.xmlElem("Mean").xmlVal.parseNumber 
+    if(scale != null) meanVal=meanVal/scale else meanVal
+
+    baseVal: elem.xmlElem("Base").xmlVal.parseNumber
+
+    periodVal: elem.xmlElem("Period").xmlVal.parseNumber
+    
+    ts: elem.xmlElem("TimeStamp").xmlVal.parseDateTime("YYYY-MM-DDThh:mm:ss")
+    
+ 
+  
+  emptyList=emptyList.add({ts:ts,
+                          meterName:meterName,
+                          meterNumber:meterNumber,
+                          pointName:pointName,
+                          firstVal:firstVal,
+                          lastVal: lastVal,
+                          minVal: minVal,
+                          maxVal: maxVal,
+                          meanVal: meanVal,
+                          baseVal: baseVal,
+                          periodVal: periodVal,})
+                          
+   end//if(pointName.contains(".Watt"))do                   
+ end//xmlElements.each elem => do
+  return emptyList
+  
+end
