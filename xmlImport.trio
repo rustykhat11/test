@@ -37,7 +37,25 @@ emptyList:[]
     
     ts: elem.xmlElem("TimeStamp").xmlVal.parseDateTime("YYYY-MM-DDThh:mm:ss")
     
- 
+   /* 
+  lastVal: elem.xmlElem("Last").xmlVal.parseNumber 
+    if(scale != null) lastVal=lastVal/scale else lastVal
+
+    minVal: elem.xmlElem("Min").xmlVal.parseNumber 
+    if(scale != null) minVal=minVal/scale else minVal
+
+    maxVal: elem.xmlElem("Max").xmlVal.parseNumber 
+    if(scale != null) maxVal=maxVal/scale else maxVal
+
+    meanVal: elem.xmlElem("Mean").xmlVal.parseNumber 
+    if(scale != null) meanVal=meanVal/scale else meanVal
+
+    baseVal: elem.xmlElem("Base").xmlVal.parseNumber
+
+    periodVal: elem.xmlElem("Period").xmlVal.parseNumber
+    
+    ts: elem.xmlElem("TimeStamp").xmlVal.parseDateTime("YYYY-MM-DDThh:mm:ss")
+    */
   
   emptyList=emptyList.add({ts:ts,
                           meterName:meterName,
